@@ -72,10 +72,6 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
 ## 💻 Configuração para desenvolvimento e execução do código
 
-*Acrescentar as informações necessárias sobre pré-requisitos (IDEs, bibliotecas, serviços etc.) e instalação básica do projeto, descrevendo eventuais versões utilizadas. Colocar um passo a passo de como o leitor pode baixar o código e executar a aplicação a partir de sua máquina local.*
-
-*exemplo de instruções*
-
 Aqui encontram-se todas as instruções necessárias para a instalação de todos os programas, bibliotecas e ferramentas imprescindíveis para a configuração do ambiente de desenvolvimento.
 
 1. Baixar e instalar o node.js: [https://nodejs.org/pt-br/](https://nodejs.org/pt-br/) (versão 16.15.1 LTS)
@@ -91,7 +87,7 @@ Isso instalará todas as dependências definidas no arquivo <b>package.json</b> 
 ```sh
 npm start
 ```
-5. Agora você pode acessar a aplicação através do link http://localhost:1234/
+5. Agora você pode acessar a aplicação através do link http://localhost:3000/
 6. O servidor está online.
     
 

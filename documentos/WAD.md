@@ -29,7 +29,7 @@
 <div align="center">
 <figcaption><strong>Figura 1 - Persona 1</strong></figcaption>
 <br>
-<img src="assets/Personas/Persona-1.png" width="100%">
+<img src="../assets/Personas/Persona-1.png" width="100%">
 <br>
 <em>Fonte: Material produzido pela autora (2025)</em>
 </div>

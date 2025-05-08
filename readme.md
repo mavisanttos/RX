@@ -21,9 +21,8 @@
 
 ## 📝 Descrição
 
-&emsp; O RX é uma plataforma desenvolvida para otimizar o processo de reserva das salas de estudo no Inteli, conhecidas como “casinhas”. Criado para atender alunos, professores e funcionários, o sistema facilita a locação desses espaços de forma rápida e eficiente. <br>
-&emsp; Com uma interface simples e intuitiva, os usuários conseguem visualizar a disponibilidade das salas em tempo real e fazer reservas em blocos de uma hora. A plataforma permite editar ou cancelar agendamentos e envia notificações para lembrar os usuários de seus compromissos, reduzindo o número de faltas. <br>
-&emsp; Entre os diferenciais, o RX também oferece um sistema de alertas para o caso de cancelamentos, permitindo que os usuários sejam avisados quando uma sala desejada estiver novamente disponível. Isso reduz a ociosidade e melhora o aproveitamento dos espaços.<br>
+&emsp; O RX é uma plataforma desenvolvida para otimizar o processo de reserva das salas de estudo no Inteli, conhecidas como “casinhas”. Criado para atender alunos, professores e funcionários, o sistema facilita a locação desses espaços de forma rápida e eficiente. Com uma interface simples e intuitiva, os usuários conseguem visualizar a disponibilidade das salas em tempo real e fazer reservas em blocos de uma hora. A plataforma permite editar ou cancelar agendamentos e envia notificações para lembrar os usuários de seus compromissos, reduzindo o número de faltas. <br>
+&emsp; Entre os diferenciais, o RX também oferece um sistema de alertas para o caso de cancelamentos, permitindo que os usuários sejam avisados quando uma sala desejada estiver novamente disponível. Isso reduz a ociosidade e melhora o aproveitamento dos espaços. A plataforma também permite que o usuário escolha o horário desejado para a reserva, e, com base nessa seleção, as salas disponíveis para aquele horário específico são exibidas, garantindo um processo de reserva mais rápido e sem conflitos. <br>
 &emsp; O RX contribui diretamente para um ambiente acadêmico mais organizado, otimizando recursos e promovendo produtividade entre os membros da comunidade Inteli. <br>
 
 ## 📝 Link de demonstração

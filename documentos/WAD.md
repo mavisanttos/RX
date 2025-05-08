@@ -83,9 +83,83 @@ Critério de aceite 2 | Atualização - o sistema deverá atualizar a disponibil
 
 ### 3.1. Modelagem do banco de dados  (Semana 3)
 
-*Posicione aqui os diagramas de modelos relacionais do seu banco de dados, apresentando todos os esquemas de tabelas e suas relações. Utilize texto para complementar suas explicações, se necessário.*
+&emsp; A modelagem do banco de dados é uma parte essencial do desenvolvimento de plataformas WEB, pois garante uma estrutura eficiente para o armazenamento e gerenciamento das informações. O banco de dados é responsável por armazenar dados cruciais, como as informações dos usuários, das salas disponíveis e das reservas realizadas. <br>
 
-*Posicione também o modelo físico com o Schema do BD (arquivo .sql)*
+## Modelo Relacional (Lógico)
+&emsp; O modelo relacional do banco de dados descreve a estrutura lógica das informações e como elas se relacionam. Ele é representado por meio de diagramas com tabelas, atributos (colunas) e relacionamentos (chaves primárias e estrangeiras). <br>
+
+<div align="center">
+<figcaption><strong>Figura 2 - Modelo Lógico do Banco de Dados</strong></figcaption>
+<br>
+<img src="../assets/Banco de Dados/modelo-banco.png" width="100%">
+<br>
+<em>Fonte: Material produzido pela autora (2025)</em>
+</div>
+
+&emsp; O modelo relacional da plataforma RX é composto por:
+- **users**: armazena informações dos usuários (nome, e-mail, turma, grupo, etc.).
+
+- **rooms**: contém os dados das salas de estudo disponíveis para reserva.
+
+- **predefined_times**: define os horários padronizados que os usuários podem escolher ao realizar reservas.
+
+- **bookings**: representa cada reserva feita por um usuário para uma sala, em uma data e horário específicos.
+
+### Relações entre as tabelas
+A tabela bookings se relaciona com:
+
+- users por meio da coluna user_id: cada reserva pertence a um usuário.
+
+- rooms por meio da coluna room_id: cada reserva está associada a uma sala específica.
+
+- predefined_times por meio da coluna time_slot_id: cada reserva ocorre dentro de um horário predefinido.
+
+&emsp; Essas relações garantem integridade referencial, ou seja, impedem que sejam registradas reservas para salas inexistentes, usuários inválidos ou horários que não estão no sistema. <br>
+
+## Modelo Físico
+&emsp; O modelo físico é a implementação concreta do modelo relacional. Ele traduz a estrutura lógica para comandos SQL.
+
+[Acesse o modelo físico da plataforma RX (init.sql)](../scripts/init.sql)
+
+```sql
+-- init.sql
+CREATE TABLE users (
+  user_id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
+  class VARCHAR(3),
+  group_number INT,
+  google_id VARCHAR(100) UNIQUE
+);
+
+CREATE TABLE rooms (
+  room_id SERIAL PRIMARY KEY,
+  room_number VARCHAR(20) UNIQUE,
+  location VARCHAR(100)
+);
+
+CREATE TABLE predefined_times (
+  time_slot_id SERIAL PRIMARY KEY,
+  start_time TIME,
+  end_time TIME
+);
+
+CREATE TABLE bookings (
+  booking_id SERIAL PRIMARY KEY,
+  user_id INT,
+  room_id INT,
+  date DATE,
+  time_slot_id INT,
+  status VARCHAR(30),
+
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
+  FOREIGN KEY (time_slot_id) REFERENCES predefined_times(time_slot_id)
+);
+```
+
+
+&emsp; A modelagem do banco de dados, tanto em seu nível relacional quanto físico, é fundamental para o funcionamento correto e eficiente da plataforma RX. O modelo relacional organiza os dados e define as regras lógicas entre as entidades, enquanto o modelo físico implementa essas regras no banco de dados real. Com essa estrutura, o RX consegue oferecer um sistema confiável e escalável de reserva de salas, com validações automáticas e integridade dos dados garantida por meio das relações entre as tabelas. <br>
 
 ### 3.1.1 BD e Models (Semana 5)
 *Descreva aqui os Models implementados no sistema web*

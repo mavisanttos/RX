@@ -175,9 +175,14 @@ CREATE TABLE bookings (
   
 *Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
 
-### 3.3. Wireframes (Semana 03)
+### 3.3. Wireframes
 
-*Posicione aqui as imagens do wireframe construído para sua solução e, opcionalmente, o link para acesso (mantenha o link sempre público para visualização).*
+&emsp; Wireframe é uma representação visual simples da interface de um sistema, nesse caso, o sistema WEB, ela auxilia na estruturação do site final, permite visualizar a estrutura do site e a organização dos elementos principais e o fluxo de navegação. <br>
+&emsp; No contexto do projeto, o wireframe foi criado para representar a proposta funcional da plataforma de reserva de salas, garantindo que todos os componentes essenciais — como login com conta Google, exibição de salas disponíveis, formulário de reserva e gestão de agendamentos — estejam presentes e bem posicionados. <br>
+
+[Acesse o Wireframe da plataforma RX](https://www.figma.com/design/vHx0qLkNj1X5AI8aU02OT9/RX?node-id=20-2&t=TJE6iLSurOA6y6G9-1)
+
+&emsp; A construção do wireframe representa um passo essencial no desenvolvimento da plataforma RX, pois permite antecipar e planejar a experiência de uso com base nas funcionalidades definidas. Com ele, é possível validar o fluxo de interação dos usuários de maneira clara e objetiva. <br>
 
 ### 3.4. Guia de estilos (Semana 05)
 
@@ -216,5 +221,4 @@ CREATE TABLE bookings (
 
 _Incluir as principais referências de seu projeto, para que seu parceiro possa consultar caso ele se interessar em aprofundar. Um exemplo de referência de livro e de site:_<br>
 
----
 ---

@@ -1,4 +1,5 @@
-CREATE TABLE users (
+-- Tabela de usuários
+CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL PRIMARY KEY,
   name VARCHAR(100),
   email VARCHAR(100) UNIQUE,
@@ -7,27 +8,42 @@ CREATE TABLE users (
   google_id VARCHAR(100) UNIQUE
 );
 
-CREATE TABLE rooms (
+-- Tabela de salas
+CREATE TABLE IF NOT EXISTS rooms (
   room_id SERIAL PRIMARY KEY,
   room_number VARCHAR(20) UNIQUE,
   location VARCHAR(100)
 );
 
-CREATE TABLE predefined_times (
+-- Tabela de horários predefinidos (faixas de 1h)
+CREATE TABLE IF NOT EXISTS predefined_times (
   time_slot_id SERIAL PRIMARY KEY,
   start_time TIME,
-  end_time TIME
+  end_time TIME,
+  CONSTRAINT uq_start_end UNIQUE (start_time, end_time)
 );
 
-CREATE TABLE bookings (
+-- Tabela de reservas
+CREATE TABLE IF NOT EXISTS bookings (
   booking_id SERIAL PRIMARY KEY,
-  user_id INT,
-  room_id INT,
-  date DATE,
-  time_slot_id INT,
-  status VARCHAR(30),
+  user_id INT NOT NULL,
+  room_id INT NOT NULL,
+  date DATE NOT NULL,
+  time_slot_id INT NOT NULL,
+  status VARCHAR(30) DEFAULT 'reservado',
 
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-  FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
-  FOREIGN KEY (time_slot_id) REFERENCES predefined_times(time_slot_id)
+  -- Restrições de integridade
+  CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  CONSTRAINT fk_room FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
+  CONSTRAINT fk_timeslot FOREIGN KEY (time_slot_id) REFERENCES predefined_times(time_slot_id),
+
+  -- Restrições de negócio
+  CONSTRAINT uq_room_date_slot UNIQUE (room_id, date, time_slot_id),
+  CONSTRAINT uq_user_date_slot UNIQUE (user_id, date, time_slot_id),
+  CONSTRAINT uq_user_day UNIQUE (user_id, date)
 );
+
+-- Inserção de faixas de horário de 1h, das 07:00 às 21:00 (PostgreSQL)
+INSERT INTO predefined_times (start_time, end_time)
+SELECT make_time(h, 0, 0), make_time(h + 1, 0, 0)
+FROM generate_series(7, 21) AS h;

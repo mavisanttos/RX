@@ -1,12 +1,29 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('./routes');
+
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 
-app.use(express.json());
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
 
-const routes = require('./routes/index');
-app.use('/', routes);
+// Rotas
+app.use('/api', routes);
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+// Rota de teste
+app.get('/', (req, res) => {
+  res.send('Sistema de Reservas de Salas');
+});
+
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Algo quebrou!');
+});
+
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });

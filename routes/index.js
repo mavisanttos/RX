@@ -1,15 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const UsuarioController = require('../controllers/UsuarioController');
-const ReservaController = require('../controllers/ReservaController');
+const router = require('express').Router();
 
-// Rotas de Usuário
-router.post('/usuarios', UsuarioController.criarUsuario);
-router.get('/usuarios/:id', UsuarioController.buscarUsuario);
+router.use('/users',           require('./userRoutes'));
+router.use('/rooms',           require('./roomRoutes'));
+router.use('/times',           require('./predefinedTimeRoutes'));
+router.use('/bookings',        require('./bookingRoutes'));
 
-// Rotas de Reserva
-router.post('/reservas', ReservaController.criarReserva);
-router.get('/reservas', ReservaController.listarReservas);
-router.put('/reservas/:id/cancelar', ReservaController.cancelarReserva);
+router.get('/', (_, res) => res.json({ message: 'RX API v1' }));
 
 module.exports = router;

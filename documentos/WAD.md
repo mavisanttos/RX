@@ -243,14 +243,28 @@ A abordagem MVC isola responsabilidades, facilita testes unitários de cada cama
 
 &emsp; A construção do wireframe representa um passo essencial no desenvolvimento da plataforma RX, pois permite antecipar e planejar a experiência de uso com base nas funcionalidades definidas. Com ele, é possível validar o fluxo de interação dos usuários de maneira clara e objetiva. <br>
 
-### 3.4. Guia de estilos (Semana 05)
+### 3.4. Guia de estilos
 
-*Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
+O guia de estilos a seguir apresenta os principais elementos visuais utilizados na construção do sistema RX. Ele foi desenvolvido para garantir coesão visual e consistência entre todas as telas do protótipo.
+
+Os componentes abrangem tipografia, cores, botões e demais elementos de interface.
+
+Acesse o guia completo de estilos aqui:
+[Guia de Estilos – RX no Figma](https://www.figma.com/design/vHx0qLkNj1X5AI8aU02OT9/RX?node-id=142-172&t=jplM6YOZKvoXEdZp-1)
+
+Esse guia serve como base visual para manter a identidade do sistema RX em todas as telas e componentes, garantindo uniformidade e facilitando futuras evoluções do projeto.
 
 
-### 3.5. Protótipo de alta fidelidade (Semana 05)
+### 3.5. Protótipo de alta fidelidade
 
-*Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
+A seguir, estão algumas telas principais do sistema RX, representadas em protótipo de alta fidelidade, com base nos wireframes e nas funcionalidades previamente definidas.
+
+As imagens ilustram os fluxos essenciais de uso do sistema, como login, visualização e reserva de salas. O design foi pensado para ser funcional, simples e intuitivo.
+
+Acesse o protótipo completo aqui:
+[Protótipo RX – Figma](https://www.figma.com/design/vHx0qLkNj1X5AI8aU02OT9/RX?node-id=80-2&t=jplM6YOZKvoXEdZp-1)
+
+As telas apresentadas representam a versão final da interface do sistema RX, com foco na clareza visual e na experiência do usuário. Esse protótipo serve como referência para o desenvolvimento front-end da aplicação.
 
 ### 3.6. WebAPI e endpoints
 

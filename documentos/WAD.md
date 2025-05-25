@@ -123,7 +123,10 @@ A tabela bookings se relaciona com:
 
 ```sql
 -- init.sql
-CREATE TABLE users (
+-- =============================
+-- TABELA DE USUÁRIOS
+-- =============================
+CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL PRIMARY KEY,
   name VARCHAR(100),
   email VARCHAR(100) UNIQUE,
@@ -132,48 +135,104 @@ CREATE TABLE users (
   google_id VARCHAR(100) UNIQUE
 );
 
-CREATE TABLE rooms (
+-- =============================
+-- TABELA DE SALAS
+-- =============================
+CREATE TABLE IF NOT EXISTS rooms (
   room_id SERIAL PRIMARY KEY,
   room_number VARCHAR(20) UNIQUE,
   location VARCHAR(100)
 );
 
-CREATE TABLE predefined_times (
+-- =============================
+-- TABELA DE HORÁRIOS PADRÃO (faixas de 1h)
+-- =============================
+CREATE TABLE IF NOT EXISTS predefined_times (
   time_slot_id SERIAL PRIMARY KEY,
   start_time TIME,
-  end_time TIME
+  end_time TIME,
+  CONSTRAINT uq_start_end UNIQUE (start_time, end_time)
 );
 
-CREATE TABLE bookings (
-  booking_id SERIAL PRIMARY KEY,
-  user_id INT,
-  room_id INT,
-  date DATE,
-  time_slot_id INT,
-  status VARCHAR(30),
+-- Inserção dos horários padrão (07:00 às 21:00)
+INSERT INTO predefined_times (start_time, end_time)
+SELECT make_time(h, 0, 0), make_time(h + 1, 0, 0)
+FROM generate_series(7, 21) AS h
+WHERE NOT EXISTS (
+  SELECT 1 FROM predefined_times 
+  WHERE start_time = make_time(h, 0, 0) AND end_time = make_time(h + 1, 0, 0)
+);
 
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-  FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
-  FOREIGN KEY (time_slot_id) REFERENCES predefined_times(time_slot_id)
+-- =============================
+-- TABELA DE RESERVAS
+-- =============================
+CREATE TABLE IF NOT EXISTS bookings (
+  booking_id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL,
+  room_id INT NOT NULL,
+  date DATE NOT NULL,
+  time_slot_id INT NOT NULL,
+  status VARCHAR(30) DEFAULT 'reservado',
+
+  -- Chaves estrangeiras
+  CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  CONSTRAINT fk_room FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
+  CONSTRAINT fk_timeslot FOREIGN KEY (time_slot_id) REFERENCES predefined_times(time_slot_id),
+
+  -- Regras de negócio
+  CONSTRAINT uq_room_date_slot UNIQUE (room_id, date, time_slot_id),  -- só uma reserva por sala/hora
+  CONSTRAINT uq_user_date_slot UNIQUE (user_id, date, time_slot_id),  -- usuário não pode reservar dois locais no mesmo horário
+  CONSTRAINT uq_user_day UNIQUE (user_id, date)                       -- um usuário só pode reservar uma sala por dia
 );
 ```
 
 
 &emsp; A modelagem do banco de dados, tanto em seu nível relacional quanto físico, é fundamental para o funcionamento correto e eficiente da plataforma RX. O modelo relacional organiza os dados e define as regras lógicas entre as entidades, enquanto o modelo físico implementa essas regras no banco de dados real. Com essa estrutura, o RX consegue oferecer um sistema confiável e escalável de reserva de salas, com validações automáticas e integridade dos dados garantida por meio das relações entre as tabelas. <br>
 
-### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+### 3.1.1 BD e Models
 
-### 3.2. Arquitetura (Semana 5)
+Para garantir a integridade dos dados e viabilizar regras de negócio como **“um usuário só pode reservar uma sala por dia”**, o RX utiliza **PostgreSQL** (hospedado no Supabase). Toda a persistência é acessada via módulo `pg`, sem ORMs, de forma que cada query SQL reflita diretamente as restrições definidas na migração (`init.sql`).
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+| Model | Atributos principais | Responsabilidade no código |
+|-------|----------------------|----------------------------|
+| **User** (`users`) | `user_id`, `name`, `email`, `class`, `group_number`, `google_id` | Criar, listar, atualizar e remover usuários. Métodos em `models/userModel.js` chamam `SELECT/INSERT/UPDATE/DELETE` e lidam com unicidade de `email` e `google_id`. |
+| **Room** (`rooms`) | `room_id`, `room_number`, `location` | Gerenciar salas disponíveis. O campo `room_number` é `UNIQUE`, garantindo que não existam duplicatas como “A101”. |
+| **PredefinedTime** (`predefined_times`) | `time_slot_id`, `start_time`, `end_time` | Manter faixas de 1 h entre 07:00 e 22:00. Popular automaticamente por `INSERT … SELECT generate_series`. CRUD exposto apenas para leitura via API. |
+| **Booking** (`bookings`) | `booking_id`, `user_id`, `room_id`, `date`, `time_slot_id`, `status` | Registrar reservas. Conta com três *unique constraints*:<br>• `uq_room_date_slot` impede choque de duas reservas na mesma sala/hora;<br>• `uq_user_date_slot` impede que o mesmo usuário reserve dois locais no mesmo horário;<br>• `uq_user_day` garante uma reserva por dia por usuário. |
 
-**Instruções para criação do diagrama de arquitetura**  
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
-  
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+Cada controller (ex.: `bookingController.js`) injeta o Model correspondente e devolve JSON padronizado, mantendo clara a separação de responsabilidades.
+
+A modelagem está alinhada aos casos de uso mapeados nas *User Stories*: reservar, cancelar, listar disponibilidade e manter cadastro de salas/usuários. As constraints em nível de banco eliminam inconsistências sem sobrecarregar a aplicação com validações extras.
+
+
+### 3.2. Arquitetura
+
+O RX segue a arquitetura **MVC puro** em Node.js + Express, favorecendo manutenibilidade e testes. O diagrama a seguir apresenta a visão de alto nível (modelo completo disponível em `assets/Arquitetura/rx-architecture.png`):
+
+[Clique aqui para acessar a arquitetura MVC](https://www.canva.com/design/DAGoau0HdhM/Y_6MvZbbGs0Z42n1vHdGJQ/edit?utm_content=DAGoau0HdhM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+ 
+- **View (Cliente)**  
+  - Frontend ainda em desenvolvimento, mas qualquer cliente (browser, mobile ou ferramenta REST) pode consumir a API.
+  - Responsável apenas por exibir dados e coletar input – sem lógica de negócios.
+
+- **Controller (Servidor → `controllers/`)**  
+  - Recebe requisições HTTP, valida formatos básicos (JSON, parâmetros) e chama o Model.
+  - Traduz respostas do banco em JSON padronizado (códigos 200/201/404/500).
+
+- **Model (Servidor → `models/`)**  
+  - Executa SQL puro usando a *connection pool* (`config/db.js`).
+  - Encapsula todas as regras de negócio ligadas a persistência (ex.: verificação de *rowCount* para excluir).
+
+**Fluxo de dados**  
+
+1. Usuário clica em **“Reservar”** no frontend → `POST /api/bookings`.  
+2. *Controller* de Bookings valida corpo → chama `Booking.create()`.  
+3. *Model* executa `INSERT` no Postgres. Constraints garantem ausência de choques.  
+4. Banco retorna registro ⇢ *Model* ⇢ *Controller* ⇢ JSON **201 Created** para a *View*.
+
+Setas no diagrama ilustram essas trocas, sempre no sentido **View ⇆ Controller ⇆ Model ⇆ Banco**.
+
+A abordagem MVC isola responsabilidades, facilita testes unitários de cada camada e permite evoluir o frontend sem tocar na lógica de negócio ou na persistência.
 
 ### 3.3. Wireframes
 
@@ -193,9 +252,36 @@ CREATE TABLE bookings (
 
 *Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
 
-### 3.6. WebAPI e endpoints (Semana 05)
+### 3.6. WebAPI e endpoints
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+> A coleção completa para o **Insomnia**/Postman encontra-se em `rest.http`.
+
+| Recurso | Método | Rota | Descrição | Body requerido |
+|---------|--------|------|-----------|----------------|
+| **Users** | `GET` | `/api/users` | Lista usuários | — |
+|  | `GET` | `/api/users/:id` | Busca usuário | — |
+|  | `POST` | `/api/users` | Cria usuário | `{name, email, class, group_number}` |
+|  | `PUT` | `/api/users/:id` | Atualiza usuário | `{name?, email?, class?, group_number?}` |
+|  | `DELETE` | `/api/users/:id` | Remove usuário | — |
+| **Rooms** | `GET` `/api/rooms` | Lista salas |
+|  | `POST` `/api/rooms` | Cria sala | `{room_number, location}` |
+|  | `PUT` `/api/rooms/:id` | Atualiza sala | `{room_number?, location?}` |
+|  | `DELETE` `/api/rooms/:id` | Remove sala |
+| **Predefined Times** | `GET` `/api/times` | Lista horários padrão | — |
+|  | `GET` `/api/times/:id` | Busca horário específico |
+| **Bookings** | `GET` `/api/bookings` | Lista reservas |
+|  | `GET` `/api/bookings/:id` | Busca reserva |
+|  | `POST` `/api/bookings` | Cria reserva | `{user_id, room_id, date, time_slot_id}` |
+|  | `PUT` `/api/bookings/:id` | Atualiza reserva | `{status?, date?, time_slot_id?}` |
+|  | `DELETE` `/api/bookings/:id` | Cancela (remove) reserva |
+
+#### Convenções
+- Todas as respostas de sucesso retornam `application/json`.  
+- Campos inválidos ou registros inexistentes geram `404`.  
+- Violação de constraint (ex.: dupla reserva) retorna `409`.  
+- Autenticação será integrada na próxima sprint via OAuth Google; por ora, a API é aberta na rede interna do Inteli.
+
+A WebAPI permite ao frontend navegar dinamicamente entre usuários, salas, horários e reservas. A padronização de rotas e códigos de status simplifica a integração e automatiza testes de regressão via Jest + Supertest. 
 
 ### 3.7 Interface e Navegação (Semana 07)
 

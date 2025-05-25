@@ -30,42 +30,43 @@ _Coloque aqui o link para seu projeto publicado e link para vídeo de demonstra�
 
 Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
-- <b>config</b>: Configurações do banco de dados e outras configurações do projeto.
+<b>config</b>: Contém as configurações do banco de dados (como a conexão com o Supabase) e outras variáveis de ambiente utilizadas no projeto.
 
-- <b>controllers</b>: Controladores da aplicação (lógica de negócio).
+<b>controllers</b>: Controladores da aplicação, responsáveis por processar as requisições recebidas pelas rotas, aplicar regras de negócio básicas e intermediar a comunicação com os modelos.
 
-- <b>models</b>: Modelos da aplicação (definições de dados e interações com o banco de dados).
+<b>models</b>: Modelos da aplicação, que representam a estrutura das entidades (como usuários e reservas) e fazem a interação direta com o banco de dados.
 
-- <b>routes</b>: Rotas da aplicação.
+<b>routes</b>: Define todas as rotas da API RESTful, conectando URLs específicas aos métodos dos controllers.
 
-- <b>services</b>: Serviços auxiliares que centralizam regras de negócio reutilizáveis.
+<b>services</b>: Serviços reutilizáveis contendo regras de negócio mais complexas, validações e funções auxiliares que podem ser utilizadas por múltiplos controllers.
 
-- <b>assets</b>: Arquivos públicos como imagens, fontes e outros recursos estáticos.
+<b>assets</b>: Arquivos públicos como imagens, ícones, fontes e outros recursos estáticos.
 
-- <b>scripts</b>: Scripts JavaScript públicos utilizados no lado do cliente.
+<b>scripts</b>: Scripts JavaScript que podem ser utilizados no lado do cliente, como funções utilitárias para o front-end.
 
-- <b>styles</b>: Arquivos CSS utilizados para estilização da interface da aplicação.
+<b>styles</b>: Arquivos CSS usados para estilizar a interface da aplicação web.
 
-- <b>tests</b>: Testes automatizados.
+<b>tests</b>: Contém os testes automatizados da aplicação utilizando o framework Jest.
 
-- <b>views</b>: Views da aplicação (se aplicável).
+<b>views</b>: Diretório opcional que pode conter templates HTML ou views server-side (não usado no momento atual, pois o projeto foca na API REST).
 
 📄 Arquivos Importantes <br>
-- <b>.gitignore</b>: Arquivo que especifica quais arquivos/pastas devem ser ignorados pelo Git.
 
-- <b>.env.example</b>: Exemplo de arquivo para definir variáveis de ambiente do projeto.
+<b>.gitignore</b>: Arquivo que especifica quais arquivos/pastas devem ser ignorados pelo Git (ex: node_modules, .env, etc).
 
-- <b>jest.config.js</b>: Arquivo de configuração do Jest, utilizado para testes automatizados.
+<b>.env.example</b>: Arquivo de exemplo para configuração de variáveis de ambiente, como DATABASE_URL.
 
-- <b>package.json</b>: Arquivo que gerencia as dependências e scripts do projeto Node.js.
+<b>jest.config.js</b>: Arquivo de configuração do Jest, usado para testes unitários e de integração.
 
-- <b>package-lock.json</b>: Arquivo que registra as versões exatas das dependências instaladas.
+<b>package.json</b>: Define as dependências do projeto, scripts de execução e metadados do projeto Node.js.
 
-- <b>server.js</b>: Arquivo principal que inicializa e configura o servidor da aplicação.
+<b>package-lock.json</b>: Registra as versões exatas das dependências instaladas, garantindo reprodutibilidade.
 
-- <b>rest.http</b>: Arquivo opcional utilizado para testar endpoints da API diretamente.
+<b>server.js</b>: Arquivo principal que inicializa o servidor Express e carrega as configurações, rotas e middlewares.
 
-- <b>README.md</b>: Arquivo que serve como guia introdutório e explicação geral sobre o projeto e a aplicação (o mesmo arquivo que você está lendo agora).
+<b>rest.http</b>: Arquivo auxiliar que permite testar os endpoints da aplicação diretamente a partir de editores como o VSCode.
+
+<b>README.md</b>: Documento principal com instruções gerais e explicações sobre a arquitetura do sistema.
 
 ## 💻 Configuração para desenvolvimento e execução do código
 
@@ -84,8 +85,15 @@ Isso instalará todas as dependências definidas no arquivo <b>package.json</b> 
 ```sh
 npm start
 ```
-5. Agora você pode acessar a aplicação através do link http://localhost:3000/
-6. O servidor está online.
+4. Copie o arquivo .env.example e renomeie para .env, preenchendo as variáveis necessárias, como a URL do banco de dados.
+5. Com tudo configurado, inicie a aplicação com o comando:
+
+```sh
+npm start
+```
+
+6. Agora você pode acessar a aplicação através do link http://localhost:3000/
+7. O servidor está online e pronto para receber requisições.
     
 
 ## 📋 Licença/License

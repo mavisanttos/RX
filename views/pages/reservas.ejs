@@ -1,0 +1,65 @@
+<% layout('layout/main') %>
+
+<div class="reservas-container">
+  <div class="reservas-header">
+    <span class="icon-salas">🏠</span>
+    <h1>Salas disponíveis</h1>
+  </div>
+  <div class="salas-grid">
+    <% salas.forEach(sala => { %>
+      <div class="sala-card">
+        <div class="sala-card-topo"><%= sala.nome %></div>
+        <div class="sala-card-info">
+          Andar: <%= sala.andar %><br>
+          Situação: <%= sala.situacao %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<script>
+  const userId = <%= JSON.stringify(user?.user_id || null) %>;
+
+  // Se userId for null, exibe mensagem e para tudo
+  if (userId === null) {
+    document.getElementById('reservas-list').innerHTML = '<p>Você precisa estar logado para ver suas reservas.</p>';
+  } else {
+    fetch('/api/bookings')
+      .then(res => res.json())
+      .then(reservas => {
+        const minhas = reservas.filter(r => r.user_id === userId);
+        const list = document.getElementById('reservas-list');
+
+        if (minhas.length === 0) {
+          list.innerHTML = '<p>Você não possui reservas.</p>';
+        } else {
+          minhas.forEach(r => {
+            const div = document.createElement('div');
+            div.className = 'reserva-card';
+            div.innerHTML = `
+              <span>
+                Sala ${r.room_id} reservada para o dia ${r.date} às ${r.time_slot_id}
+              </span>
+              <form onsubmit="return cancelarReserva(event, '${r.booking_id}')">
+                <button type="submit">Cancelar</button>
+              </form>
+            `;
+            list.appendChild(div);
+          });
+        }
+      })
+      .catch(err => {
+        document.getElementById('reservas-list').innerHTML = '<p>Erro ao carregar reservas.</p>';
+        console.error('Erro ao buscar reservas:', err);
+      });
+  }
+
+  function cancelarReserva(event, id) {
+    event.preventDefault();
+    fetch('/api/bookings/' + id, { method: 'DELETE' })
+      .then(() => window.location.reload())
+      .catch(err => console.error('Erro ao cancelar reserva:', err));
+    return false;
+  }
+</script>

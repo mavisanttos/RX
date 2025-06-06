@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= pageTitle %></title>  
-  <style>
-    <%- include('../css/style.css'); %>
-  </style>
+  <title>RX</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Lora:700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Inclui o cabeçalho como um partial -->
-  <%- include('../components/header') %>
-
+  <% if (typeof hideNavFooter === 'undefined' || !hideNavFooter) { %>
+    <%- include('../components/header', { user: user }) %>
+  <% } %>
   <main>
-    <!-- Renderiza o conteúdo da página específica -->
-    <%- include(content) %>
+    <%- body %>
   </main>
-
-  <footer>
-    <!-- Rodapé comum aqui -->
-    <p>Rodapé da Aplicação</p>
-  </footer>
-
-  <!-- Adicione scripts JS se necessário -->
-  <script src="/js/script.js"></script>
-  
+  <% if (typeof hideNavFooter === 'undefined' || !hideNavFooter) { %>
+    <footer>
+      <!-- Seu rodapé aqui, se existir -->
+    </footer>
+  <% } %>
 </body>
 </html>

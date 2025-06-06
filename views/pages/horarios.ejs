@@ -1,0 +1,33 @@
+<% layout('layout/main') %>
+<div class="main-center"></div>
+<div class="container horarios-container">
+  <div class="horarios-header">
+    <span class="icon-clock">🕒</span>
+    <h1>Horários</h1>
+  </div>
+  <p class="horarios-desc">
+    Selecione um dos horários disponíveis para visualizar as salas que estão livres
+  </p>
+  <div class="horarios-grid" id="horarios-grid"></div>
+</div>
+<script>
+  // Lista fixa de horários desejados
+  const horariosFixos = [
+    "07:00", "08:00", "09:00", "10:00", "11:00",
+    "12:00", "13:00", "14:00", "15:00", "16:00",
+    "17:00", "18:00", "19:00", "20:00", "21:00"
+  ];
+
+  const grid = document.getElementById('horarios-grid');
+  horariosFixos.forEach(horario => {
+    const form = document.createElement('form');
+    form.action = '/salas';
+    form.method = 'GET';
+    form.style.display = 'inline';
+    form.innerHTML = `
+      <input type="hidden" name="horario" value="${horario}">
+      <button type="submit">${horario}</button>
+    `;
+    grid.appendChild(form);
+  });
+</script>

@@ -1,9 +1,16 @@
-<header>
-  <nav>
-    <ul>
-      <li><a href="/">Página Inicial</a></li>
-      <li><a href="/about">Sobre Nós</a></li>
-      <!-- Adicione outras opções de navegação conforme necessário -->
-    </ul>
-  </nav>
+<header class="navbar">
+    <div class="navbar-logo">
+      <a href="/horarios" style="color: inherit; text-decoration: none;">RX</a>
+    </div>
+    <div class="navbar-center">
+      <a href="/horarios" class="navbar-btn">
+        <span class="navbar-icon">🏠</span> Home
+      </a>
+      <a href="/reservas" class="navbar-btn">
+        <span class="navbar-icon">🗓️</span> Minhas reservas
+      </a>
+    </div>
+    <div class="navbar-profile">
+      <img src="<%= user?.photo || '/assets/Plataforma/user.webp' %>" alt="Foto do usuário" class="navbar-avatar">
+    </div>
 </header>

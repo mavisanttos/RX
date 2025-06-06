@@ -26,4 +26,16 @@ const update = async (id, { room_number, location }) =>
 const remove = async id =>
   (await pool.query('DELETE FROM rooms WHERE room_id = $1', [id])).rowCount > 0;
 
+// Busca salas que NÃO estão reservadas para o horário informado
+const findAvailableByHorario = async (horario) => {
+  // Ajuste o nome dos campos/tabelas conforme seu banco!
+  return (await pool.query(`
+    SELECT * FROM rooms
+    WHERE room_id NOT IN (
+      SELECT room_id FROM bookings WHERE time_slot_id = $1
+    )
+    ORDER BY room_id
+  `, [horario])).rows;
+};
+
 module.exports = { findAll, findById, create, update, remove };

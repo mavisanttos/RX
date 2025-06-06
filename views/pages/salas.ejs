@@ -1,0 +1,20 @@
+<% layout('layout/main') %>
+<div class="salas-header">
+  <span class="icon-salas">🏠</span>
+  <h1>Salas disponíveis</h1>
+  <% if (horario) { %>
+    <span class="horario-selecionado">Horário: <%= horario %></span>
+  <% } %>
+</div>
+  <div class="salas-grid">
+    <% salas.forEach(sala => { %>
+      <div class="sala-card">
+        <div class="sala-card-topo"><%= sala.nome %></div>
+        <div class="sala-card-info">
+          Andar: <%= sala.andar %><br>
+          Situação: <%= sala.situacao %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>

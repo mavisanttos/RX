@@ -1,60 +1,362 @@
-/* Reset básico para remover estilos padrão do navegador */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Estilo para o corpo da página */
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f0f0f0;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Estilo para o cabeçalho */
-  header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-  }
-  
-  /* Estilo para a navegação dentro do cabeçalho */
-  header nav ul {
-    list-style-type: none;
-  }
-  
-  header nav ul li {
-    display: inline;
-    margin-right: 20px;
-  }
-  
-  header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  header nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Estilo para o conteúdo principal */
-  main {
-    padding: 20px;
-  }
-  
-  /* Estilo para o rodapé */
-  footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.rx-logo {
+  width: 200px;
+  max-width: 90vw;
+  margin-bottom: 24px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Fundo escurecido com imagem */
+.login-bg {
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  background: url('/assets/Plataforma/Salas-para-reunioes-em-grupo.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.login-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #2d253ad9; /* Roxo escuro com transparência */
+  z-index: 1;
+}
+
+/* Card centralizado */
+.login-card {
+  background: #211A2C;
+  color: #fff;
+  padding: 24px 64px;    /* Menos em cima/baixo, mais nas laterais */
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 32px #0005;
+  min-width: 350px;
+  max-width: 500px;      /* Mais largo */
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-card h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+.login-card h2 {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 32px;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+/* Botão Google estilizado */
+.google-btn {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  background: none;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 6px 36px;      /* Menos altura, mais largura */
+  margin-top: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  min-width: 0;
+  min-height: 0;
+  box-shadow: none;
+}
+
+.google-btn:hover {
+  background: #fff2;
+  color: #fff;
+}
+
+.icon-user::before {
+  content: "👤";
+  font-size: 1em;
+  margin-right: 8px;
+  color: #7c4dff; /* Roxo, ajuste se quiser outro tom */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+/* Container da página de horários */
+.horarios-container {
+  background: #d3d3d3;
+  border-radius: 24px 24px 24px 24px;
+  padding: 48px 40px 40px 40px;
+  box-shadow: 0 4px 16px #0002;
+  max-width: 1100px;
+  margin: 80px 130px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-10%);
+}
+
+/* Header com ícone e título */
+.horarios-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+.icon-clock {
+  font-size: 2.5rem;
+  margin-right: 8px;
+}
+.horarios-header h1 {
+  font-family: 'Lora', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Descrição */
+.horarios-desc {
+  font-size: 1.4rem;
+  margin-bottom: 32px;
+  color: #222;
+  font-family: 'Montserrat', Arial, sans-serif;
+  text-align: left;
+  max-width: 600px;
+}
+
+/* Grid de horários */
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 32px;
+  margin-top: 32px;
+  justify-items: start;
+  max-width: 900px;
+}
+
+.horarios-grid form {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.horarios-grid button {
+  width: 120px;
+  background: #2d253a;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 28px 0;
+  font-size: 2rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 500;
+  box-shadow: 2px 2px 8px #aaa;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+  text-align: center;
+  outline: none;
+}
+.horarios-grid button:hover {
+  background: #3a314a;
+  box-shadow: 4px 4px 12px #888;
+}
+
+body.login.navbar {
+  display: none;
+}
+
+.navbar {
+  width: 100%;
+  background: #2d253a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px 18px 32px;
+  box-sizing: border-box;
+}
+
+.navbar-logo {
+  font-family: 'Lora', serif;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.navbar-center {
+  display: flex;
+  gap: 32px;
+  margin: 0 auto;
+}
+
+.navbar-btn {
+  background: #231d2e;
+  color: #fff;
+  font-family: 'Lora', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 18px;
+  padding: 12px 36px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px #0002;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.navbar-btn:hover {
+  background: #3a314a;
+  box-shadow: 0 6px 16px #0003;
+}
+
+.navbar-icon {
+  font-size: 1.3rem;
+  margin-right: 6px;
+}
+
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+}
+
+.navbar-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reservas-container {
+  background: #d3d3d3;
+  border-radius: 32px;
+  padding: 48px 40px 40px 40px;
+  box-shadow: 0 4px 16px #0002;
+  max-width: 1100px;
+  margin: 40px auto 0 auto;
+}
+
+.reservas-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+.icon-salas {
+  font-size: 2.5rem;
+  margin-right: 8px;
+}
+.reservas-header h1 {
+  font-family: 'Lora', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.salas-container {
+  background: #d3d3d3;
+  border-radius: 32px;
+  padding: 48px 40px 40px 40px;
+  box-shadow: 0 4px 16px #0002;
+  max-width: 1100px;
+  margin: 40px auto 0 auto;
+}
+
+.salas-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.icon-salas {
+  font-size: 2.5rem;
+  margin-right: 8px;
+}
+.salas-header h1 {
+  font-family: 'Lora', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.salas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 32px;
+  justify-items: start;
+}
+
+.sala-card {
+  width: 260px;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px #0002;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.sala-card-topo {
+  background: #2d253a;
+  color: #fff;
+  font-family: 'Lora', serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 24px 0 12px 0;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.sala-card-info {
+  background: #fff;
+  color: #222;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.2rem;
+  text-align: left;
+  padding: 20px 18px 18px 18px;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+.horario-selecionado {
+  margin-left: 24px;
+  font-size: 1.3rem;
+  color: #2d253a;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 500;
+}

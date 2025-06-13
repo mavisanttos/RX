@@ -22,10 +22,6 @@
 &emsp; Entre os diferenciais, o RX também oferece um sistema de alertas para o caso de cancelamentos, permitindo que os usuários sejam avisados quando uma sala desejada estiver novamente disponível. Isso reduz a ociosidade e melhora o aproveitamento dos espaços. A plataforma também permite que o usuário escolha o horário desejado para a reserva, e, com base nessa seleção, as salas disponíveis para aquele horário específico são exibidas, garantindo um processo de reserva mais rápido e sem conflitos. <br>
 &emsp; O RX contribui diretamente para um ambiente acadêmico mais organizado, otimizando recursos e promovendo produtividade entre os membros da comunidade Inteli. <br>
 
-## 📝 Link de demonstração
-
-_Coloque aqui o link para seu projeto publicado e link para vídeo de demonstração_
-
 ## 📁 Estrutura de pastas
 
 Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
@@ -92,15 +88,9 @@ npm start
 npm start
 ```
 
-6. Agora você pode acessar a aplicação através do link http://localhost:3000/
+6. Agora você pode acessar a aplicação através do link http://localhost:3000/login
 7. O servidor está online e pronto para receber requisições.
     
 
 ## 📋 Licença/License
-```
-Alunos inteli (remover essa observação do readme.md após leitura e execução, junto com o link para o tutorial):
-
-1. Siga o tutorial para criação da licença: https://drive.google.com/file/d/1hXWLHUhjBkPVuGqeE2LZKozFntnJZzlx/view
-```
-
-<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/Intelihub/Template_M2/">MODELO GIT INTELI</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://www.linkedin.com/in/maria-vit%C3%B3ria-dos-santos/">Inteli, Maria Vitória dos Santos</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>
+<a href="https://github.com/mavisanttos/RX">RX</a> © 2025 by <a href="https://github.com/mavisanttos">Maria Vitória dos Santos</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;">

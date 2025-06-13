@@ -297,28 +297,32 @@ As telas apresentadas representam a versão final da interface do sistema RX, co
 
 A WebAPI permite ao frontend navegar dinamicamente entre usuários, salas, horários e reservas. A padronização de rotas e códigos de status simplifica a integração e automatiza testes de regressão via Jest + Supertest. 
 
-### 3.7 Interface e Navegação (Semana 07)
+### 3.7 Interface e Navegação
 
 *Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
 
 ---
 
-## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
+## <a name="c4"></a>4. Desenvolvimento da Aplicação Web
 
-### 4.1 Demonstração do Sistema Web (Semana 8)
-
+### 4.1 Demonstração do Sistema Web
 *VIDEO: Insira o link do vídeo demonstrativo nesta seção*
 *Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
 
-### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
+### 4.2 Conclusões e Trabalhos Futuros
 
-*Indique pontos fortes e pontos a melhorar de maneira geral.*
-*Relacione também quaisquer outras ideias que você tenha para melhorias futuras.*
+O sistema está funcional e cumpre bem seu objetivo de permitir reservas de salas com agilidade e organização. A estrutura do projeto permite fácil manutenção e expansão, o que pode facilitar a vida de quem continuar esse trabalho.
 
+Para evoluções futuras, é possível considerar:
+
+- Ajustar a interface para ser mais responsiva em dispositivos móveis.
+- Adicionar validações visuais no front-end, com feedback claro ao usuário.
+- Criar uma área para o usuário ver e gerenciar suas reservas.
+- Incluir uma visão administrativa com controle geral de salas e horários.
+- Melhorar a experiência com confirmações visuais após ações como reservar ou cancelar.
+- Refinar a autenticação com mais segurança e controle de sessões.
+
+Esses pontos abrem caminho para novas versões mais completas, com foco na experiência do usuário e na escalabilidade da aplicação.
 
 
 ## <a name="c5"></a>5. Referências
-
-_Incluir as principais referências de seu projeto, para que seu parceiro possa consultar caso ele se interessar em aprofundar. Um exemplo de referência de livro e de site:_<br>
-
----

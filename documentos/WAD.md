@@ -324,7 +324,6 @@ Após autenticação, o usuário visualiza uma grade de horários fixos, das 07h
 #### Estrutura do Frontend
 
 - As páginas são renderizadas com EJS e layout centralizado com `layout/main.ejs`.
-- Cada página usa uma folha de estilo própria (`login.css`, `style.css`).
 - A navegação ocorre por rotas definidas no Express, com métodos GET e POST simples.
 - A renderização de dados é dinâmica, conectada ao banco de dados via controllers.
 

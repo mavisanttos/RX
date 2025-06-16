@@ -299,7 +299,35 @@ A WebAPI permite ao frontend navegar dinamicamente entre usuários, salas, horá
 
 ### 3.7 Interface e Navegação
 
-*Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+A interface do sistema foi desenvolvida com EJS para renderização dinâmica e organizada com o motor de templates `ejs-mate`, permitindo a aplicação de um layout base em todas as páginas. A navegação segue um fluxo simples e funcional: o usuário realiza login, escolhe um horário e visualiza as salas disponíveis para aquele período. 
+
+Os arquivos das views estão organizados na pasta `/views/pages`, com folhas de estilo localizadas em `/views/css`, mantendo um padrão de desenvolvimento limpo e modular.
+
+---
+
+#### Tela de Login  
+A primeira tela do sistema apresenta o logotipo da plataforma e um botão centralizado para login com conta Google. O objetivo é garantir segurança e controle de acesso, restringindo o uso a estudantes e funcionários autorizados. O layout foi desenhado para ser objetivo e acolhedor.
+
+**Print da tela de login**  
+![Print da tela de login](../assets/Plataforma/login_page.png)
+
+---
+
+#### Tela de Seleção de Horários  
+Após autenticação, o usuário visualiza uma grade de horários fixos, das 07h às 21h, em intervalos de uma hora. Cada horário é exibido como um botão, que ao ser clicado, envia o valor selecionado para a próxima etapa. A disposição em grid facilita a leitura e torna a interação mais ágil.
+
+**Print da tela de horários**  
+![Print da tela de horários](../assets/Plataforma/horarios_page.png)
+
+---
+
+#### Estrutura do Frontend
+
+- As páginas são renderizadas com EJS e layout centralizado com `layout/main.ejs`.
+- Cada página usa uma folha de estilo própria (`login.css`, `style.css`).
+- A navegação ocorre por rotas definidas no Express, com métodos GET e POST simples.
+- A renderização de dados é dinâmica, conectada ao banco de dados via controllers.
+
 
 ---
 
